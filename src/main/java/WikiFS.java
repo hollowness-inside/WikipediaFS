@@ -29,10 +29,8 @@ public class WikiFS extends FuseStubFS {
             String pageData = new String(connection.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
 
             final Matcher matcher = LINK_PATTERN.matcher(pageData);
-            while (matcher.find()) {
-                final String found = matcher.group(1);
-                links.add(Paths.get(found).getFileName().toString());
-            }
+            while (matcher.find())
+                links.add(Paths.get(matcher.group(1)).getFileName().toString());
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
